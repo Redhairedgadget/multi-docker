@@ -1,0 +1,22 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t eleroy7/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run eleroy7/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t eleroy7/client ./client
+  - docker build -t eleroy7/nginx ./nginx
+  - docker build -t eleroy7/server ./server
+  - docker build -t eleroy7/worker ./worker
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take those images and push them to docker hub
+  - docker push eleroy7/client
+  - docker push eleroy7/nginx
+  - docker push eleroy7/server
+  - docker push eleroy7/worker
