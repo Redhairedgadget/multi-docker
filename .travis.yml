@@ -1,30 +1,24 @@
 sudo: required
 services:
-  - docker
-
+- docker
 before_install:
-  - docker build -t eleroy7/react-test -f ./client/Dockerfile.dev ./client
-
+- docker build -t eleroy7/react-test -f ./client/Dockerfile.dev ./client
 script:
-  - docker run eleroy7/react-test npm test -- --coverage
-
+- docker run eleroy7/react-test npm test -- --coverage
 after_success:
-  - docker build -t eleroy7/client ./client
-  - docker build -t eleroy7/nginx ./nginx
-  - docker build -t eleroy7/server ./server
-  - docker build -t eleroy7/worker ./worker
-  # Log in to the docker CLI
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  # Take those images and push them to docker hub
-  - docker push eleroy7/client
-  - docker push eleroy7/nginx
-  - docker push eleroy7/server
-  - docker push eleroy7/worker
-
+- docker build -t eleroy7/client ./client
+- docker build -t eleroy7/nginx ./nginx
+- docker build -t eleroy7/server ./server
+- docker build -t eleroy7/worker ./worker
+- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+- docker push eleroy7/client
+- docker push eleroy7/nginx
+- docker push eleroy7/server
+- docker push eleroy7/worker
 deploy:
   provider: heroku
   api_key:
-    secure: A+8IMAiXWZwas8mYL3T2Juub5YB7kraefh+rNbjWS9EDP8mC3RoYLDvxTO2nlcV4xqKYFJpQrdoQLI2WlTGgYyW6lKLk4+Hwr3p8T1szt4XGBUdmd0rD8s7bdBgG0QLqYAMDOQ7x0MsgPtNrKWxjgMv3vG2j1087dRJPaRQCBk0tEcJjyO3Y39tXOIjU+xdNLy0WjmJZFy1bS27cratURAM5eIBkoYqgqNh21vwSECKvo/e4A1+6k0PtxpH6CVJJaGOO53NIlac4ZherDlN8DhVHIzFL/LZenaQAcw/2YKfypAHaz9oWjpvdrcVzpSXbu1Ygwxnz33XLwgkDbT5q0xXS2WcxNsxwqoRqgtgWfUliZvgOtnnuFBnx08pI5pP+oqolJwmtn+sAZ0eWIg8GL/roeHDBCvPOG7OORWvkcC5H4+KJNjdeWm4AB/RA1e6UfzzTnHWM1eKy10W+YNoyyFoPsy1TH7wGmgsQj6g6kuga9LwoXfqtr00+lz0bqbXYUvUCfITATePgQIXzniUDWyYFFcHl3gRy/kgnJCVJ2htmyDcJLCT5qysS5OU+xnx+d/hZeNy6+uVJZD9dVYp5V61/Veh0ggF1CjVgjjd2K/bhfSd8ZugOxA5NLUodPtqSGU0WVbw4cpJSMg49E07sj09+Ec/2QYK5fZUbBloKXGI=
+    secure: t1l0l7s4a2cW6QmALrgZbk94yDyfRJWMAXP+USrA3L2kX8PNJmNLRbCs6/16wEvbMzo4DEyaqMoAIN9nhtXDZnCrXPV0BSoyBQCxdXMICqMVNMdHiySWd7CZ2N6Zcd+e1zCFAKAKr60xOOCch1NFvxfkLUGWztPNbtBVpu+E6QelGtscklVWHDxFiSHKtJSzPshDkrF30pRlUIdhk2dCRzYXDGBxKIRlLhg44vlOV8+vTXTHsadlmmkKxZcwkvce9ZEXQIGHy4VrkR5LtuVeLz66KmAJlnQrbC/8P66fZcZFH5W0z16Fix0ftkHrNuQ3L2CyByHwW3bfyz+C6byHS+1sdJV4qFoEvzz6/R5OE9/nzSY55mUA0txTeq+F53BSCGN0aNfEfza8t0Ep9g+zYHfgikbuJmsq8iWwih34ZWdlxS1qieLK393bqFLqmIJQQM6taSTLAhxS4HBKcUhsk+1Ucyx6aOpm++WQvs90L+CI4zQFyocQUicp5iUr7vM6BPgQXwxQv3BcYipBlJEyhwp+JmLA6AMJtcv2sI4nRWF/RjZrYv3h6vWAt/HSHU5SIp9Sd8t6fSjWGXvGbviSHnGcz7NdHPoB+SwNe/RfF9OgCm54P6q1sHfXsptObz7WCG43FxSlkl1EBJ984zx5isZ3RI3rmshmhdKkhchfdKQ=
   app: multi-docker1
   on:
     repo: Redhairedgadget/multi-docker
