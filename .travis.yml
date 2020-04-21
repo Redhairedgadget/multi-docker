@@ -20,3 +20,11 @@ after_success:
   - docker push eleroy7/nginx
   - docker push eleroy7/server
   - docker push eleroy7/worker
+
+deploy:
+  provider: heroku
+  api_key:
+    secure: A+8IMAiXWZwas8mYL3T2Juub5YB7kraefh+rNbjWS9EDP8mC3RoYLDvxTO2nlcV4xqKYFJpQrdoQLI2WlTGgYyW6lKLk4+Hwr3p8T1szt4XGBUdmd0rD8s7bdBgG0QLqYAMDOQ7x0MsgPtNrKWxjgMv3vG2j1087dRJPaRQCBk0tEcJjyO3Y39tXOIjU+xdNLy0WjmJZFy1bS27cratURAM5eIBkoYqgqNh21vwSECKvo/e4A1+6k0PtxpH6CVJJaGOO53NIlac4ZherDlN8DhVHIzFL/LZenaQAcw/2YKfypAHaz9oWjpvdrcVzpSXbu1Ygwxnz33XLwgkDbT5q0xXS2WcxNsxwqoRqgtgWfUliZvgOtnnuFBnx08pI5pP+oqolJwmtn+sAZ0eWIg8GL/roeHDBCvPOG7OORWvkcC5H4+KJNjdeWm4AB/RA1e6UfzzTnHWM1eKy10W+YNoyyFoPsy1TH7wGmgsQj6g6kuga9LwoXfqtr00+lz0bqbXYUvUCfITATePgQIXzniUDWyYFFcHl3gRy/kgnJCVJ2htmyDcJLCT5qysS5OU+xnx+d/hZeNy6+uVJZD9dVYp5V61/Veh0ggF1CjVgjjd2K/bhfSd8ZugOxA5NLUodPtqSGU0WVbw4cpJSMg49E07sj09+Ec/2QYK5fZUbBloKXGI=
+  app: multi-docker1
+  on:
+    repo: Redhairedgadget/multi-docker
